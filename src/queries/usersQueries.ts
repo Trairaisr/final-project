@@ -3,8 +3,8 @@ import { sql } from "../sql";
 import type { RegisterParams } from "../types/params";
 
 export async function register(registerParams: RegisterParams) {
-  if (await checkIfUserExists(registerParams.username))
-  return false;
+  try {
+    if (await checkIfUserExists(registerParams.username)) return false;
 
     const [result] = await sql.execute<ResultSetHeader>(
       "INSERT INTO users (username, password, name, lastname, email) VALUES (?,?,?,?,?)",
@@ -17,7 +17,10 @@ export async function register(registerParams: RegisterParams) {
       ]
     );
 
-  return result.insertId;
+    return result.insertId;
+  } catch (error) {
+    return false;
+  }
 }
 
 export async function loginUser(username: string, password: string) {
@@ -36,9 +39,13 @@ export async function loginUser(username: string, password: string) {
   };
 }
 async function checkIfUserExists(username: string) {
-  const [[result]] = await sql.execute<RowDataPacket[]>(
-    "SELECT id FROM users WHERE username = ?",
-    [username]
-  );
-  return !!result;
+  try {
+    const [[result]] = await sql.execute<RowDataPacket[]>(
+      "SELECT id FROM users WHERE username = ?",
+      [username]
+    );
+    return !!result;
+  } catch (error) {
+    return true;
+  }
 }

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { register } from "../queries/usersQueries";
+import { register, loginUser } from "../queries/usersQueries";
 
 const route = Router();
 
@@ -17,6 +17,24 @@ route.post("/register", async (req, res) => {
   res.send({
     userId,
   });
+});
+
+route.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+
+  const userInfo = await loginUser(username, password);
+
+  if (!userInfo)
+    return res.status(404).send({
+      success: false,
+      message: "Username and Password do not match",
+    });
+
+  res.send({
+    success:true,
+    userInfo
+  })
+
 });
 
 export default route;
