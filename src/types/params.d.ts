@@ -5,3 +5,13 @@ export interface RegisterParams {
   password: string;
   email: string;
 }
+
+export interface VacationParams {
+  id:number;
+  destination: string;
+  description: string;
+  image: string;
+  startDate: Date;
+  endDate: Date; 
+  price: number;
+}
