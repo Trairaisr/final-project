@@ -26,20 +26,25 @@ export async function createVacation(
   return result.insertId;
 }
 
-export async function upDateVacation(vacationParams: VacationParams) {
-  const [result] = await sql.execute<ResultSetHeader>(
-    "UPDATE vacations SET destination = ? , description = ?, image = ? , startDate = ? , endDate = ? , price = ? WHERE id = ? ",
-    [
-      vacationParams.destination,
-      vacationParams.description,
-      vacationParams.image,
-      vacationParams.startDate,
-      vacationParams.endDate,
-      vacationParams.price,
-      vacationParams.id,
-     ]
-  );
-  return result
+export async function updateVacation(vacationParams: VacationParams) {
+  try {
+    const [result] = await sql.execute<ResultSetHeader>(
+      "UPDATE vacations SET destination = ? , description = ?, image = ? , startDate = ? , endDate = ? , price = ? WHERE id = ? ",
+      [
+        vacationParams.destination,
+        vacationParams.description,
+        vacationParams.image,
+        vacationParams.startDate,
+        vacationParams.endDate,
+        vacationParams.price,
+        vacationParams.id,
+      ]
+    );
+
+    return !!result.affectedRows;
+  } catch {
+    return false;
+  }
 }
 
 export async function deleteVacation(vacationId: number) {

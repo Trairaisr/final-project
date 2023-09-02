@@ -1,9 +1,12 @@
 import { Router } from "express";
 import { register, loginUser } from "../queries/usersQueries";
+import { validateSchema } from "../middleware/validateSchema";
+import registerSchema from "../schemas/registerSchema";
+import loginSchema from "../schemas/loginSchema";
 
 const route = Router();
 
-route.post("/register", async (req, res) => {
+route.post("/register", validateSchema(registerSchema), async (req, res) => {
   const { username, password, name, lastname, email } = req.body;
 
   const userId = await register({
@@ -19,7 +22,7 @@ route.post("/register", async (req, res) => {
   });
 });
 
-route.post("/login", async (req, res) => {
+route.post("/login",validateSchema(loginSchema), async (req, res) => {
   const { username, password } = req.body;
 
   const userInfo = await loginUser(username, password);
