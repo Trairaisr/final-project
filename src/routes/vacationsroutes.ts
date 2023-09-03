@@ -8,6 +8,7 @@ import {
 import { validateSchema } from "../middleware/validateSchema";
 import createVacationSchema from "../schemas/createVacationScheme";
 import updateVacationSchema from "../schemas/updateVacationSchema";
+import { validateRole } from "../middleware/checkRole";
 
 const route = Router();
 
@@ -17,58 +18,67 @@ route.get("/", async (_, res) => {
   res.send({ vacations });
 });
 
-route.post("/", validateSchema(createVacationSchema), async (req, res) => {
-  const { destination, description, image, startDate, endDate, price } =
-    req.body;
+route.post(
+  "/",
+  validateRole("admin"),
+  validateSchema(createVacationSchema),
+  async (req, res) => {
+    const { destination, description, image, startDate, endDate, price } =
+      req.body;
 
-  if (new Date(startDate).getTime() >= new Date(endDate).getTime())
-    return res.send({ success: false });
+    if (new Date(startDate).getTime() >= new Date(endDate).getTime())
+      return res.send({ success: false });
 
-  const vacationId = await createVacation({
-    destination,
-    description,
-    image,
-    startDate,
-    endDate,
-    price,
-  });
+    const vacationId = await createVacation({
+      destination,
+      description,
+      image,
+      startDate,
+      endDate,
+      price,
+    });
 
-  res.send({
-    vacationId,
-  });
-});
+    res.send({
+      vacationId,
+    });
+  }
+);
 
-route.put("/", validateSchema(updateVacationSchema), async (req, res) => {
-  const {
-    vacationId,
-    destination,
-    description,
-    image,
-    startDate,
-    endDate,
-    price,
-  } = req.body;
+route.put(
+  "/",
+  validateRole("admin"),
+  validateSchema(updateVacationSchema),
+  async (req, res) => {
+    const {
+      vacationId,
+      destination,
+      description,
+      image,
+      startDate,
+      endDate,
+      price,
+    } = req.body;
 
-  const isUpdated = await updateVacation({
-    id: vacationId,
-    destination,
-    description,
-    image,
-    startDate,
-    endDate,
-    price,
-  });
+    const isUpdated = await updateVacation({
+      id: vacationId,
+      destination,
+      description,
+      image,
+      startDate,
+      endDate,
+      price,
+    });
 
-  res.send({
-    success: isUpdated,
-  });
-});
+    res.send({
+      success: isUpdated,
+    });
+  }
+);
 
-route.delete("/", async (req, res) => {
+route.delete("/", validateRole("admin"), async (req, res) => {
   const { vacationId } = req.body;
 
-  if (typeof vacationId != "number")
-  return res.send({success:false})
+  if (typeof vacationId !== "number") return res.send({ success: false });
 
   const isDeleted = await deleteVacation(vacationId); // to make sure we deleted a row (vacation)
 

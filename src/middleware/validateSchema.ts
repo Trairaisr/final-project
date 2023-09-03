@@ -8,7 +8,7 @@ export function validateSchema(schema: Schema) {
     });
 
     if (result.error) {
-      return res.send({
+      return res.status(400).send({
         success: false,
         msg: result.error.message,
       });

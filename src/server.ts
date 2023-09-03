@@ -21,10 +21,10 @@ app.use("/users", userRoute);
 app.use("/vacations", vacationsRoute);
 
 app.use((error: Error, _: Request, res: Response, __: NextFunction) => {
-    if((error as any).status === 401)
-    return res.status(401).send("You are not authorized for this action")
+  if ((error as any).status === 401)
+    return res.status(401).send("You are not authorized for this action");
 
-    res.status(404).send("path not found")
+  res.status(404).send("path not found");
 });
 
 app.listen(4000, () => console.log(`Server is up at port ${4000}`));
