@@ -2,10 +2,13 @@ import express, { NextFunction, Request, Response } from "express";
 import userRoute from "./routes/userroutes";
 import vacationsRoute from "./routes/vacationsroutes";
 import { expressjwt } from "express-jwt";
+import cors from "cors";
 
 const app = express();
 
 app.use(express.json());
+
+app.use(cors());
 
 app.use(
   expressjwt({
