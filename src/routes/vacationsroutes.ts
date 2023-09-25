@@ -20,7 +20,7 @@ route.get("/", async (_, res) => {
 
 route.post(
   "/",
-  validateRole("admin"),
+  validateRole("user"), // i change it from admin to user
   validateSchema(createVacationSchema),
   async (req, res) => {
     const { destination, description, image, startDate, endDate, price } =
@@ -46,7 +46,7 @@ route.post(
 
 route.put(
   "/",
-  validateRole("admin"),
+  validateRole("user"),  // i change it from admin to user
   validateSchema(updateVacationSchema),
   async (req, res) => {
     const {
@@ -75,7 +75,7 @@ route.put(
   }
 );
 
-route.delete("/", validateRole("admin"), async (req, res) => {
+route.delete("/", validateRole("user"), async (req, res) => {  // i change it from admin to user
   const { vacationId } = req.body;
 
   if (typeof vacationId !== "number") return res.send({ success: false });

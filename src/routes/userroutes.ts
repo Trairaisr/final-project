@@ -49,7 +49,7 @@ route.post("/login", validateSchema(loginSchema), async (req, res) => {
   const token = Jwt.sign(
     {
       userId: userInfo.id,
-      userType: userInfo.userType,
+      userType: userInfo.userType
     },
     "trairaisr",
     { algorithm: "HS256"}
@@ -58,7 +58,7 @@ route.post("/login", validateSchema(loginSchema), async (req, res) => {
   res.send({
     success: true,
     userInfo,
-    token,
+    token
   });
 });
 

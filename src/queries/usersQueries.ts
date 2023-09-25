@@ -49,3 +49,11 @@ async function checkIfUserExists(username: string) {
     return true;
   }
 }
+
+// async function getUserType(userId: string) {
+//   const [[result]] = await sql.execute<RowDataPacket[]>(
+//     "SELECT userType FROM users WHERE username = ?",
+//     [userId]
+//   );
+//   return result;
+// }

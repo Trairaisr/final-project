@@ -32,6 +32,14 @@ INSERT INTO users (username, password, name, lastname, email, userType) VALUES (
 "test2@gmail.com",
 "admin"
 );
+INSERT INTO users (username, password, name, lastname, email, userType) VALUES (
+"testname",
+"cats",
+"mitzi",
+"simpson",
+"test2@gmail.com",
+"user"
+);
 
 DROP TABLE IF EXISTS vacations;
 
@@ -54,7 +62,7 @@ INSERT INTO vacations (destination, description, image, startDate, endDate, pric
  "2024-01-01",
  "2024-01-13",
  "689"),
- ("Tbili",
+ ("Tbilisi",
  "Tbilisi is a city bursting with vibrant culture and landmark attractions. From ancient churches and old-world architecture to an abundance of tasty cuisine and wine bars, there's a lot of things to do and see in Tbilisi.",
  "https://e0.pxfuel.com/wallpapers/332/840/desktop-wallpaper-tbilisi.jpg",
  "2023-11-30",
@@ -62,7 +70,7 @@ INSERT INTO vacations (destination, description, image, startDate, endDate, pric
  "780"),
   ("Washington",
  "No matter how you spend your time in the nation’s capital, you're sure to leave with lifelong memories.",
- "https://wallpaperplay.com/walls/full/2/f/2/297583.jpg",
+ "https://wallpaperaccess.com/full/395381.jpg",
  "2023-9-17",
  "2023-10-02",
  "1300"),
@@ -115,6 +123,12 @@ In addition to its famous museums, busy streets dotted with all kinds of shops, 
  "2023-08-01",
  "2023-08-23",
  "670");
+ ("Ottawa",
+ "Ottawa is Canada's capital city and has long been known as an important hub for commerce and travel. In fact, Ottawa's name comes from the Algonquin word adawe, meaning “to trade.” Today Ottawa is the perfect place to experience Canadiana all in one city.",
+"https://www.getyourguide.com/magazine/wp-content/migrated-content/uploads/2019/04/Header-2019.05.09-8-reasons-Canada-is-perfect-for-nature-lovers-GetYourGuide--1200x675.jpg",
+ "2023-12-28",
+ "2024-01-11",
+ "1199");
 
 
 DROP TABLE IF EXISTS followers;

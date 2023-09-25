@@ -19,13 +19,16 @@ app.use(
   })
 );
 
+
 app.use("/users", userRoute);
 
 app.use("/vacations", vacationsRoute);
 
+app.use("/adminPage", vacationsRoute);
+
 app.use((error: Error, _: Request, res: Response, __: NextFunction) => {
   if ((error as any).status === 401)
-    return res.status(401).send("You are not authorized for this action");
+    return res.status(401).send(error); // nuri joined here
 
   res.status(404).send("path not found");
 });
